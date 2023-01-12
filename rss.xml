@@ -4,7 +4,7 @@
         <title></title>
         <link>undefined</link>
         <description>undefined</description>
-        <lastBuildDate>Thu, 12 Jan 2023 11:22:11 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 12 Jan 2023 11:23:56 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Joplin Pages Publisher</generator>
         <item>
@@ -232,6 +232,23 @@
 <li>dom(3)</li>
 <li>hibernate3(3)</li>
 </ul>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Jwt]]></title>
+            <guid>6469377872f547229362868c7894ea59</guid>
+            <pubDate>Fri, 30 Dec 2022 06:20:41 GMT</pubDate>
+            <content:encoded><![CDATA[<h1 id="jwt">Jwt</h1>
+<h2 id="操作库">操作库</h2>
+<p><a title="https://github.com/dvsekhvalnov/jose-jwt" href="https://github.com/dvsekhvalnov/jose-jwt">https://github.com/dvsekhvalnov/jose-jwt</a></p>
+<h2 id="参考">参考</h2>
+<p><a title="https://www.cnblogs.com/xwc1996/p/14058115.html" href="https://www.cnblogs.com/xwc1996/p/14058115.html">https://www.cnblogs.com/xwc1996/p/14058115.html</a></p>
+<p><a title="https://www.dongchuanmin.com/net/3389.html" href="https://www.dongchuanmin.com/net/3389.html">https://www.dongchuanmin.com/net/3389.html</a></p>
+<h2 id="claimsprincipal-赋值">ClaimsPrincipal 赋值</h2>
+<ol>
+<li>context.HttpContext.User</li>
+<li>Thread.CurrentPrincipal</li>
+</ol>
 ]]></content:encoded>
         </item>
         <item>
