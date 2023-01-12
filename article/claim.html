@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8" />
+  <head>
+    <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
@@ -248,72 +248,64 @@
 </style>
 
 
-    <title>Tags - 首页</title>
-</head>
-<body>
-  <div class="main">
-    <nav class="navigation">
-      <a href="/">
-        首页
-      </a>
-    </nav>
-    <div class="blogs-list-block">
-      <ul>
-        
-          <li>
-            <strong style="font-size:2em">me</strong>
-              <ul>
-                
-                  
-                    <li>
-                      <a class="annual-block-title" href="/article/untitled">
-                        简历-孟凯
-                      </a>
-                    </li>
-                  
-                
-                  
-                
-              </ul>
-            </li>
-          
-          <li>
-            <strong style="font-size:2em">.net</strong>
-              <ul>
-                
-                  
-                
-                  
-                    <li>
-                      <a class="annual-block-title" href="/article/claim">
-                        Claim
-                      </a>
-                    </li>
-                  
-                
-              </ul>
-            </li>
-          
-          <li>
-            <strong style="font-size:2em">auth</strong>
-              <ul>
-                
-                  
-                
-                  
-                    <li>
-                      <a class="annual-block-title" href="/article/claim">
-                        Claim
-                      </a>
-                    </li>
-                  
-                
-              </ul>
-            </li>
-          
-      </ul>
-    </div>
-  </div>
-</body>
+    <title>Claim - 首页</title>
+  <link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
+  <body>
+    <div class="main">
+      <nav class="navigation">
+        <a href="/">首页</a>
+      </nav>
+      <article>
+        <header>
+          <h1 class="article-title">Claim</h1>
+          <div class="article-info">
+            <div>
+              <span
+                >Created At：<time datetime="1661929644000"
+                  >2022-08-31 15:07</time
+                ></span
+              >
+              <span
+                >Updated At：<time datetime="1672735210997"
+                  >2023-01-03 16:40</time
+                ></span
+              >
+            </div>
+            
+            <div>
+              Keywords: 
+              <span class="keyword">.net</span>
+              
+              <span class="keyword">auth</span>
+              
+            </div>
+            
+          </div>
+        </header>
+        <div class="article-content markdown-body"><h2 id="claim">Claim</h2>
+<ol>
+<li>比如驾照，驾照中的“身份证号码：xxx”是一个claim</li>
+<li>身份证号码就是ClaimType</li>
+</ol>
+<h2 id="claimsidentity">ClaimsIdentity</h2>
+<ol>
+<li>一组claims构成了一个identity , 驾照就是一种ClaimsIdentity</li>
+</ol>
+<h2 id="claimsprincipal">ClaimsPrincipal</h2>
+<ol>
+<li>ClaimsIdentity的持有者就是ClaimsPrincipal</li>
+<li>一个ClaimsPrincipal可以持有多个ClaimsIdentity，就比如一个人既持有驾照，又持有护照<br />
+<strong>生成登录Cookie</strong></li>
+</ol>
+<div><pre class="hljs"><code>
+<span class="hljs-keyword">var</span> claimsIdentity = <span class="hljs-keyword">new</span><span class="hljs-type">ClaimsIdentity</span>(
+    <span class="hljs-keyword">new</span><span class="hljs-type">Claim</span>[] { <span class="hljs-keyword">new</span><span class="hljs-type">Claim</span>(ClaimTypes.Name, loginName) }, <span class="hljs-string">"Basic"</span>);
 
+<span class="hljs-keyword">var</span> claimsPrincipal = <span class="hljs-keyword">new</span> <span class="hljs-type">ClaimsPrincipal</span>(claimsIdentity); 
+await context.Authentication.SignInAsync(_cookieAuthOptions.AuthenticationScheme, claimsPrincipal);
+</code></pre></div>
+</div>
+      </article>
+    </div>
+  </body>
 </html>

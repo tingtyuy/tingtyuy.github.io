@@ -4,7 +4,7 @@
         <title></title>
         <link>undefined</link>
         <description>undefined</description>
-        <lastBuildDate>Thu, 12 Jan 2023 11:07:49 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 12 Jan 2023 11:22:11 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Joplin Pages Publisher</generator>
         <item>
@@ -232,6 +232,34 @@
 <li>dom(3)</li>
 <li>hibernate3(3)</li>
 </ul>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[Claim]]></title>
+            <guid>ac20d44caaa1460396bf9456bc90060b</guid>
+            <pubDate>Wed, 31 Aug 2022 07:07:24 GMT</pubDate>
+            <content:encoded><![CDATA[<h2 id="claim">Claim</h2>
+<ol>
+<li>比如驾照，驾照中的“身份证号码：xxx”是一个claim</li>
+<li>身份证号码就是ClaimType</li>
+</ol>
+<h2 id="claimsidentity">ClaimsIdentity</h2>
+<ol>
+<li>一组claims构成了一个identity , 驾照就是一种ClaimsIdentity</li>
+</ol>
+<h2 id="claimsprincipal">ClaimsPrincipal</h2>
+<ol>
+<li>ClaimsIdentity的持有者就是ClaimsPrincipal</li>
+<li>一个ClaimsPrincipal可以持有多个ClaimsIdentity，就比如一个人既持有驾照，又持有护照<br />
+<strong>生成登录Cookie</strong></li>
+</ol>
+<div><pre class="hljs"><code>
+<span class="hljs-keyword">var</span> claimsIdentity = <span class="hljs-keyword">new</span><span class="hljs-type">ClaimsIdentity</span>(
+    <span class="hljs-keyword">new</span><span class="hljs-type">Claim</span>[] { <span class="hljs-keyword">new</span><span class="hljs-type">Claim</span>(ClaimTypes.Name, loginName) }, <span class="hljs-string">"Basic"</span>);
+
+<span class="hljs-keyword">var</span> claimsPrincipal = <span class="hljs-keyword">new</span> <span class="hljs-type">ClaimsPrincipal</span>(claimsIdentity); 
+await context.Authentication.SignInAsync(_cookieAuthOptions.AuthenticationScheme, claimsPrincipal);
+</code></pre></div>
 ]]></content:encoded>
         </item>
     </channel>
