@@ -16,6 +16,7 @@
       "react": { "opacityDefault": 0.7, "opacityOnHover": 0.2 }
     });
   </script>
+
 <style>
   body {
     background-color: #f5f5d5;
@@ -48,7 +49,9 @@
 
   .navigation a {
     color: #567;
-    font-family: Georgia,serif;
+    font-family: 'Lucida Console', 'Liberation Mono', Menlo, Monaco, Roboto, apple-system,
+      'Helvetica Neue', Arial, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      'WenQuanYi Micro Hei', sans-serif;
   }
 
   #homepage,
@@ -132,7 +135,7 @@
   }
 
   .about li a {
-    color: #000;
+    color: #567;
     text-decoration: underline solid;
   }
 
@@ -200,7 +203,7 @@
   .annual-block-title {
     font-family: apple-system, 'Helvetica Neue', Arial, 'Helvetica Neue', 'PingFang SC',
       'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
-    color: #000;
+    color: #567;
     text-decoration: none;
   }
 
@@ -221,7 +224,7 @@
     width: 3em;
     padding-left: 100%;
     margin: 50px 0 100px -3em;
-    color: #000;
+    color: #567;
   }
 
   .error {
@@ -244,26 +247,28 @@
     color: #777777;
   }
 </style>
+
+
     <title>首页</title>
   </head>
   <body>
     <div class="homepage-main">
       <div class="homepage-title-area">
-        <h1 class="homepage-title">纸上得来终觉浅，绝知此事要躬行</h1>
+        <h1 class="homepage-title word word--swing">纸上得来终觉浅，绝知此事要躬行</h1>
         <h2 class="homepage-subtitle">Meng Kai&#39;s diary</h2>
       </div>
       <nav class="homepage-navigation">
         <ul>
           
-          <li><a href="/archives">Archives</a></li>
+          <li><a href="/archives">笔记</a></li>
           
-          <li><a href="/about">About</a></li>
-          
-          
-          <li><a href="/rss.xml">RSS</a></li>
+          <li><a href="/about">关于</a></li>
           
           
-          <li><a href="/tags">Tags</a></li>
+          <li><a href="/rss.xml">订阅</a></li>
+          
+          
+          <li><a href="/tags">标签</a></li>
         </ul>
       </nav>
     </div>
