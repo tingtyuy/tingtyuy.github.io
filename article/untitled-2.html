@@ -248,138 +248,85 @@
 </style>
 
 
-    <title>Archives - 首页</title>
-  </head>
+    <title>表分区 - 首页</title>
+  <link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
   <body>
     <div class="main">
       <nav class="navigation">
         <a href="/">首页</a>
       </nav>
-      <div class="blogs-list-block">
-        
-        <div class="annual-block">
-          <time class="annual-block-headline">2023年</time>
-          <ol>
+      <article>
+        <header>
+          <h1 class="article-title">表分区</h1>
+          <div class="article-info">
+            <div>
+              <span
+                >Created At：<time datetime="1673349415391"
+                  >2023-01-10 19:16</time
+                ></span
+              >
+              <span
+                >Updated At：<time datetime="1673351488761"
+                  >2023-01-10 19:51</time
+                ></span
+              >
+            </div>
             
-            <li>
-              <time datetime="1673349415391" class="annual-block-date">
-                2023-01-10 19:16
-              </time>
-              <a class="annual-block-title" href="/article/untitled-2">
-                表分区
-              </a>
-            </li>
+            <div>
+              Keywords: 
+              <span class="keyword">sqlserver</span>
+              
+            </div>
             
-            <li>
-              <time datetime="1673348890336" class="annual-block-date">
-                2023-01-10 19:08
-              </time>
-              <a class="annual-block-title" href="/article/untitled-1">
-                分区函数和分区方案
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673348067715" class="annual-block-date">
-                2023-01-10 18:54
-              </time>
-              <a class="annual-block-title" href="/article/untitled-3">
-                文件和文件组
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673342080091" class="annual-block-date">
-                2023-01-10 17:14
-              </time>
-              <a class="annual-block-title" href="/article/untitled-4">
-                收缩日志
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673341002773" class="annual-block-date">
-                2023-01-10 16:56
-              </time>
-              <a class="annual-block-title" href="/article/untitled-8">
-                约束
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673340211202" class="annual-block-date">
-                2023-01-10 16:43
-              </time>
-              <a class="annual-block-title" href="/article/untitled-7">
-                列存储索引
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673338899930" class="annual-block-date">
-                2023-01-10 16:21
-              </time>
-              <a class="annual-block-title" href="/article/untitled-9">
-                索引
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673316853624" class="annual-block-date">
-                2023-01-10 10:14
-              </time>
-              <a class="annual-block-title" href="/article/untitled-6">
-                数据表创建时间查询
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673246450046" class="annual-block-date">
-                2023-01-09 14:40
-              </time>
-              <a class="annual-block-title" href="/article/untitled">
-                简历-孟凯
-              </a>
-            </li>
-            
-          </ol>
-        </div>
-        
-        <div class="annual-block">
-          <time class="annual-block-headline">2022年</time>
-          <ol>
-            
-            <li>
-              <time datetime="1672381241134" class="annual-block-date">
-                2022-12-30 14:20
-              </time>
-              <a class="annual-block-title" href="/article/jwt">
-                Jwt
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1665662336000" class="annual-block-date">
-                2022-10-13 19:58
-              </time>
-              <a class="annual-block-title" href="/article/untitled-5">
-                结果窗口字体显示太小
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1661929644000" class="annual-block-date">
-                2022-08-31 15:07
-              </time>
-              <a class="annual-block-title" href="/article/claim">
-                Claim
-              </a>
-            </li>
-            
-          </ol>
-        </div>
-        
-      </div>
+          </div>
+        </header>
+        <div class="article-content markdown-body"><h1 id="表分区">表分区</h1>
+<p>将一个大表（表中含有非常多条数据）的数据根据某条件（<code>仅限该表的主键</code>）拆分成多个文件存放，以提高查询数据时的效率</p>
+<h2 id="为什么要分区">为什么要分区？</h2>
+<ol>
+<li>数据库文件默认是存储到一个文件中</li>
+<li>文件越来越大，查询就变的很慢</li>
+<li>所以我们需要拆分成小文件存储</li>
+</ol>
+<h2 id="分的方式">分的方式</h2>
+<ol>
+<li>水平</li>
+<li>垂直</li>
+</ol>
+<h2 id="水平分区">水平分区</h2>
+<ol>
+<li>创建文件组</li>
+<li>创建文件到文件组</li>
+<li>创建分区函数</li>
+<li>创建分区方案</li>
+<li>应用到分区表</li>
+</ol>
+<h2 id="分区表">分区表</h2>
+<h3 id="创建">创建</h3>
+<div><pre class="hljs"><code>create <span class="hljs-built_in">table</span> <span class="hljs-variable">&lt;表名&gt;</span> (
+  <span class="hljs-variable">&lt;列定义&gt;</span>
+)<span class="hljs-keyword">on</span><span class="hljs-variable">&lt;分区方案名&gt;</span>(分区列名)</code></pre></div>
+<h3 id="普通表转化">普通表转化</h3>
+<div><pre class="hljs"><code><span class="hljs-comment">--删除以前的聚集索引</span>
+<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">INDEX</span> [create_time_clustered_index] <span class="hljs-keyword">ON</span> [dbo].[order_detail] <span class="hljs-keyword">WITH</span> ( ONLINE = <span class="hljs-keyword">OFF</span> )
+
+GO
+
+<span class="hljs-comment">--创建分区索引</span>
+<span class="hljs-keyword">CREATE</span> CLUSTERED <span class="hljs-keyword">INDEX</span> [create_time_clustered_index] <span class="hljs-keyword">ON</span> [dbo].[order_detail] 
+(
+    create_time
+)<span class="hljs-keyword">WITH</span> (SORT_IN_TEMPDB = <span class="hljs-keyword">OFF</span>, IGNORE_DUP_KEY = <span class="hljs-keyword">OFF</span>, DROP_EXISTING = <span class="hljs-keyword">OFF</span>, ONLINE = <span class="hljs-keyword">OFF</span>) <span class="hljs-keyword">ON</span> [myPartitionSchema]([create_time])</code></pre></div>
+<h2 id="图形向导">图形向导</h2>
+<ol>
+<li>右键要分区的表 -&gt; 存储（Storage）-&gt; 创建分区（Create Partition）-&gt; 下一步</li>
+<li>选择要分区的列</li>
+<li>选择或创建分区函数</li>
+<li>选择或创建分区方案</li>
+<li>指定临界值，以及左边界或右边界。</li>
+</ol>
+</div>
+      </article>
     </div>
   </body>
 </html>

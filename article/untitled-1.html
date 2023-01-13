@@ -248,138 +248,67 @@
 </style>
 
 
-    <title>Archives - 首页</title>
-  </head>
+    <title>分区函数和分区方案 - 首页</title>
+  <link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
   <body>
     <div class="main">
       <nav class="navigation">
         <a href="/">首页</a>
       </nav>
-      <div class="blogs-list-block">
-        
-        <div class="annual-block">
-          <time class="annual-block-headline">2023年</time>
-          <ol>
+      <article>
+        <header>
+          <h1 class="article-title">分区函数和分区方案</h1>
+          <div class="article-info">
+            <div>
+              <span
+                >Created At：<time datetime="1673348890336"
+                  >2023-01-10 19:08</time
+                ></span
+              >
+              <span
+                >Updated At：<time datetime="1673351691883"
+                  >2023-01-10 19:54</time
+                ></span
+              >
+            </div>
             
-            <li>
-              <time datetime="1673349415391" class="annual-block-date">
-                2023-01-10 19:16
-              </time>
-              <a class="annual-block-title" href="/article/untitled-2">
-                表分区
-              </a>
-            </li>
+            <div>
+              Keywords: 
+              <span class="keyword">sqlserver</span>
+              
+            </div>
             
-            <li>
-              <time datetime="1673348890336" class="annual-block-date">
-                2023-01-10 19:08
-              </time>
-              <a class="annual-block-title" href="/article/untitled-1">
-                分区函数和分区方案
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673348067715" class="annual-block-date">
-                2023-01-10 18:54
-              </time>
-              <a class="annual-block-title" href="/article/untitled-3">
-                文件和文件组
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673342080091" class="annual-block-date">
-                2023-01-10 17:14
-              </time>
-              <a class="annual-block-title" href="/article/untitled-4">
-                收缩日志
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673341002773" class="annual-block-date">
-                2023-01-10 16:56
-              </time>
-              <a class="annual-block-title" href="/article/untitled-8">
-                约束
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673340211202" class="annual-block-date">
-                2023-01-10 16:43
-              </time>
-              <a class="annual-block-title" href="/article/untitled-7">
-                列存储索引
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673338899930" class="annual-block-date">
-                2023-01-10 16:21
-              </time>
-              <a class="annual-block-title" href="/article/untitled-9">
-                索引
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673316853624" class="annual-block-date">
-                2023-01-10 10:14
-              </time>
-              <a class="annual-block-title" href="/article/untitled-6">
-                数据表创建时间查询
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673246450046" class="annual-block-date">
-                2023-01-09 14:40
-              </time>
-              <a class="annual-block-title" href="/article/untitled">
-                简历-孟凯
-              </a>
-            </li>
-            
-          </ol>
-        </div>
-        
-        <div class="annual-block">
-          <time class="annual-block-headline">2022年</time>
-          <ol>
-            
-            <li>
-              <time datetime="1672381241134" class="annual-block-date">
-                2022-12-30 14:20
-              </time>
-              <a class="annual-block-title" href="/article/jwt">
-                Jwt
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1665662336000" class="annual-block-date">
-                2022-10-13 19:58
-              </time>
-              <a class="annual-block-title" href="/article/untitled-5">
-                结果窗口字体显示太小
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1661929644000" class="annual-block-date">
-                2022-08-31 15:07
-              </time>
-              <a class="annual-block-title" href="/article/claim">
-                Claim
-              </a>
-            </li>
-            
-          </ol>
-        </div>
-        
-      </div>
+          </div>
+        </header>
+        <div class="article-content markdown-body"><h1 id="分区函数和分区方案">分区函数和分区方案</h1>
+<h2 id="创建分区函数">创建分区函数</h2>
+<div><pre class="hljs"><code><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">FUNCTION</span> [fun_name](datetime) <span class="hljs-keyword">AS</span> <span class="hljs-keyword">RANGE</span> <span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">VALUES</span> (N<span class="hljs-string">'2022-01-01'</span>, N<span class="hljs-string">'2023-01-01'</span>)</code></pre></div>
+<h2 id="创建分区方案">创建分区方案</h2>
+<div><pre class="hljs"><code><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PARTITION</span> SCHEME [<span class="hljs-built_in">schema_name</span>] <span class="hljs-keyword">AS</span> <span class="hljs-keyword">PARTITION</span> [fun_name] <span class="hljs-keyword">TO</span> ([file_group_name1],[file_group_name1])</code></pre></div>
+<h2 id="合并分区">合并分区</h2>
+<p>方向是从1到2</p>
+<div><pre class="hljs"><code><span class="hljs-keyword">alter</span> <span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">FUNCTION</span> [fun_name]() <span class="hljs-keyword">merge</span> <span class="hljs-keyword">RANGE</span>  (N<span class="hljs-string">'2022-01-01'</span>)</code></pre></div>
+<h2 id="拆分分区">拆分分区</h2>
+<p>在分区函数中新增一个边界值。</p>
+<div><pre class="hljs"><code><span class="hljs-attribute">alter</span> partition function myPartitionFun()
+<span class="hljs-attribute">split</span> range(N'<span class="hljs-number">2005</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>T00:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>.<span class="hljs-number">000</span>')</code></pre></div>
+<p>如果分区函数已经关联了分区方案，那么分区数 不能大于分区方案中的文件组数。如果你的分区数和分区方案中的文件组数不符合要求，你可以先扩展分区方案中的文件组数，再扩展分区函数的临界值。
+扩展分区方案中的文件组数</p>
+<div><pre class="hljs"><code><span class="hljs-comment">--新建立一个数据文件</span>
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">database</span> mydb <span class="hljs-keyword">add</span> filegroup myfilegroup6
+GO
+<span class="hljs-comment">--新建一个文件组</span>
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">database</span> mydb <span class="hljs-keyword">add</span> file 
+(<span class="hljs-type">name</span>=N<span class="hljs-string">'myfile6'</span>,filename=N<span class="hljs-string">'D:\softwares\sqlserver\root\MSSQL14.MSSQLSERVER\MSSQL\DATA\myfile6.ndf'</span>,size=<span class="hljs-number">10</span>Mb,filegrowth=<span class="hljs-number">5</span>mb)
+<span class="hljs-keyword">to</span> filegroup myfilegroup6
+
+GO
+<span class="hljs-comment">--添加文件组到分区方案</span>
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">PARTITION</span> SCHEME myPartitionSchema  
+NEXT USED myfilegroup6;
+GO</code></pre></div>
+</div>
+      </article>
     </div>
   </body>
 </html>

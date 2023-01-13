@@ -4,9 +4,237 @@
         <title></title>
         <link>undefined</link>
         <description>undefined</description>
-        <lastBuildDate>Fri, 13 Jan 2023 06:43:24 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 13 Jan 2023 11:15:45 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Joplin Pages Publisher</generator>
+        <item>
+            <title><![CDATA[表分区]]></title>
+            <guid>a3c7cefdd64c47e39bed4d6ab9460ce5</guid>
+            <pubDate>Tue, 10 Jan 2023 11:16:55 GMT</pubDate>
+            <content:encoded><![CDATA[<h1 id="表分区">表分区</h1>
+<p>将一个大表（表中含有非常多条数据）的数据根据某条件（<code>仅限该表的主键</code>）拆分成多个文件存放，以提高查询数据时的效率</p>
+<h2 id="为什么要分区">为什么要分区？</h2>
+<ol>
+<li>数据库文件默认是存储到一个文件中</li>
+<li>文件越来越大，查询就变的很慢</li>
+<li>所以我们需要拆分成小文件存储</li>
+</ol>
+<h2 id="分的方式">分的方式</h2>
+<ol>
+<li>水平</li>
+<li>垂直</li>
+</ol>
+<h2 id="水平分区">水平分区</h2>
+<ol>
+<li>创建文件组</li>
+<li>创建文件到文件组</li>
+<li>创建分区函数</li>
+<li>创建分区方案</li>
+<li>应用到分区表</li>
+</ol>
+<h2 id="分区表">分区表</h2>
+<h3 id="创建">创建</h3>
+<div><pre class="hljs"><code>create <span class="hljs-built_in">table</span> <span class="hljs-variable">&lt;表名&gt;</span> (
+  <span class="hljs-variable">&lt;列定义&gt;</span>
+)<span class="hljs-keyword">on</span><span class="hljs-variable">&lt;分区方案名&gt;</span>(分区列名)</code></pre></div>
+<h3 id="普通表转化">普通表转化</h3>
+<div><pre class="hljs"><code><span class="hljs-comment">--删除以前的聚集索引</span>
+<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">INDEX</span> [create_time_clustered_index] <span class="hljs-keyword">ON</span> [dbo].[order_detail] <span class="hljs-keyword">WITH</span> ( ONLINE = <span class="hljs-keyword">OFF</span> )
+
+GO
+
+<span class="hljs-comment">--创建分区索引</span>
+<span class="hljs-keyword">CREATE</span> CLUSTERED <span class="hljs-keyword">INDEX</span> [create_time_clustered_index] <span class="hljs-keyword">ON</span> [dbo].[order_detail] 
+(
+    create_time
+)<span class="hljs-keyword">WITH</span> (SORT_IN_TEMPDB = <span class="hljs-keyword">OFF</span>, IGNORE_DUP_KEY = <span class="hljs-keyword">OFF</span>, DROP_EXISTING = <span class="hljs-keyword">OFF</span>, ONLINE = <span class="hljs-keyword">OFF</span>) <span class="hljs-keyword">ON</span> [myPartitionSchema]([create_time])</code></pre></div>
+<h2 id="图形向导">图形向导</h2>
+<ol>
+<li>右键要分区的表 -&gt; 存储（Storage）-&gt; 创建分区（Create Partition）-&gt; 下一步</li>
+<li>选择要分区的列</li>
+<li>选择或创建分区函数</li>
+<li>选择或创建分区方案</li>
+<li>指定临界值，以及左边界或右边界。</li>
+</ol>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[分区函数和分区方案]]></title>
+            <guid>1f4735e0acf94f0ca11cc5e59c4ca1f2</guid>
+            <pubDate>Tue, 10 Jan 2023 11:08:10 GMT</pubDate>
+            <content:encoded><![CDATA[<h1 id="分区函数和分区方案">分区函数和分区方案</h1>
+<h2 id="创建分区函数">创建分区函数</h2>
+<div><pre class="hljs"><code><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">FUNCTION</span> [fun_name](datetime) <span class="hljs-keyword">AS</span> <span class="hljs-keyword">RANGE</span> <span class="hljs-keyword">RIGHT</span> <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">VALUES</span> (N<span class="hljs-string">'2022-01-01'</span>, N<span class="hljs-string">'2023-01-01'</span>)</code></pre></div>
+<h2 id="创建分区方案">创建分区方案</h2>
+<div><pre class="hljs"><code><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">PARTITION</span> SCHEME [<span class="hljs-built_in">schema_name</span>] <span class="hljs-keyword">AS</span> <span class="hljs-keyword">PARTITION</span> [fun_name] <span class="hljs-keyword">TO</span> ([file_group_name1],[file_group_name1])</code></pre></div>
+<h2 id="合并分区">合并分区</h2>
+<p>方向是从1到2</p>
+<div><pre class="hljs"><code><span class="hljs-keyword">alter</span> <span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">FUNCTION</span> [fun_name]() <span class="hljs-keyword">merge</span> <span class="hljs-keyword">RANGE</span>  (N<span class="hljs-string">'2022-01-01'</span>)</code></pre></div>
+<h2 id="拆分分区">拆分分区</h2>
+<p>在分区函数中新增一个边界值。</p>
+<div><pre class="hljs"><code><span class="hljs-attribute">alter</span> partition function myPartitionFun()
+<span class="hljs-attribute">split</span> range(N'<span class="hljs-number">2005</span>-<span class="hljs-number">01</span>-<span class="hljs-number">01</span>T00:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>.<span class="hljs-number">000</span>')</code></pre></div>
+<p>如果分区函数已经关联了分区方案，那么分区数 不能大于分区方案中的文件组数。如果你的分区数和分区方案中的文件组数不符合要求，你可以先扩展分区方案中的文件组数，再扩展分区函数的临界值。
+扩展分区方案中的文件组数</p>
+<div><pre class="hljs"><code><span class="hljs-comment">--新建立一个数据文件</span>
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">database</span> mydb <span class="hljs-keyword">add</span> filegroup myfilegroup6
+GO
+<span class="hljs-comment">--新建一个文件组</span>
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">database</span> mydb <span class="hljs-keyword">add</span> file 
+(<span class="hljs-type">name</span>=N<span class="hljs-string">'myfile6'</span>,filename=N<span class="hljs-string">'D:\softwares\sqlserver\root\MSSQL14.MSSQLSERVER\MSSQL\DATA\myfile6.ndf'</span>,size=<span class="hljs-number">10</span>Mb,filegrowth=<span class="hljs-number">5</span>mb)
+<span class="hljs-keyword">to</span> filegroup myfilegroup6
+
+GO
+<span class="hljs-comment">--添加文件组到分区方案</span>
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">PARTITION</span> SCHEME myPartitionSchema  
+NEXT USED myfilegroup6;
+GO</code></pre></div>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[文件和文件组]]></title>
+            <guid>9e05a7df619a45c58c3e18ec3285e24b</guid>
+            <pubDate>Tue, 10 Jan 2023 10:54:27 GMT</pubDate>
+            <content:encoded><![CDATA[<h1 id="文件和文件组">文件和文件组</h1>
+<h2 id="文件组">文件组</h2>
+<h3 id="添加">添加</h3>
+<div><pre class="hljs"><code><span class="hljs-keyword">alter</span> <span class="hljs-keyword">database</span> db_name <span class="hljs-keyword">add</span> filegroup file_group_name</code></pre></div>
+<h2 id="删除">删除</h2>
+<div><pre class="hljs"><code><span class="hljs-keyword">alter</span> <span class="hljs-keyword">database</span> db_name remove filegroup file_group_name</code></pre></div>
+<h2 id="文件">文件</h2>
+<h3 id="添加-2">添加</h3>
+<div><pre class="hljs"><code><span class="hljs-keyword">alter</span> <span class="hljs-keyword">database</span> db_name <span class="hljs-keyword">add</span> file 
+(<span class="hljs-type">name</span>=N<span class="hljs-string">'file_name'</span>,filename=N<span class="hljs-string">'C:\BackUp\Db\Partition\file_name.ndf'</span>,size=<span class="hljs-number">5</span>Mb,filegrowth=<span class="hljs-number">5</span>mb)  
+</code></pre></div>
+<h2 id="删除-2">删除</h2>
+<div><pre class="hljs"><code><span class="hljs-keyword">alter</span> <span class="hljs-keyword">database</span> db_name remove file file_name
+<span class="hljs-keyword">to</span> filegroup file_group_name</code></pre></div>
+<p><code>注意：如果删除不掉就收缩日志</code></p>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[收缩日志]]></title>
+            <guid>b84af8f993d740d99b51943bc30426d7</guid>
+            <pubDate>Tue, 10 Jan 2023 09:14:40 GMT</pubDate>
+            <content:encoded><![CDATA[<h1 id="收缩日志">收缩日志</h1>
+<div><pre class="hljs"><code>use LianJinDai
+go
+
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> LianJinDai <span class="hljs-keyword">SET</span> RECOVERY SIMPLE;
+
+DBCC SHRINKFILE (LianJinDai_test_log, <span class="hljs-number">10</span>) //收缩到 <span class="hljs-number">7</span> MB
+
+DBCC SHRINKFILE (<span class="hljs-string">'UserActionLog2021'</span>, EMPTYFILE);//弃用
+
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> LianJinDai <span class="hljs-keyword">SET</span> RECOVERY <span class="hljs-keyword">Full</span>;</code></pre></div>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[约束]]></title>
+            <guid>dd075b02413245d1a809651432c7bd0f</guid>
+            <pubDate>Tue, 10 Jan 2023 08:56:42 GMT</pubDate>
+            <content:encoded><![CDATA[<h1 id="约束">约束</h1>
+<h2 id="1主键">1.主键</h2>
+<p>一行数据的唯一（逻辑上的约束）标识，并且不为空，可以是多个属性组成</p>
+<div><pre class="hljs"><code>格式为：
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表格名称 <span class="hljs-keyword">add</span> <span class="hljs-keyword">constraint</span> 约束名称 增加的约束类型 （列名）
+主键（聚集）
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> emp <span class="hljs-keyword">add</span> <span class="hljs-keyword">constraint</span> ppp <span class="hljs-keyword">primary</span> key (id)
+主键（非聚集）
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> emp <span class="hljs-keyword">add</span> <span class="hljs-keyword">constraint</span> ppp <span class="hljs-keyword">primary</span> key  nonclustered(id)</code></pre></div>
+<h2 id="2check">2.check</h2>
+<p>列数据进行限制</p>
+<div><pre class="hljs"><code>格式：
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名称 <span class="hljs-keyword">add</span> <span class="hljs-keyword">constraint</span> 约束名称 增加的约束类型 （列名）
+例子：
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> emp <span class="hljs-keyword">add</span> <span class="hljs-keyword">constraint</span> xxx <span class="hljs-keyword">check</span>(age<span class="hljs-operator">&gt;</span><span class="hljs-number">20</span>)</code></pre></div>
+<h2 id="3unique">3.unique</h2>
+<p>列数据就必须唯一</p>
+<div><pre class="hljs"><code>格式：
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 <span class="hljs-keyword">add</span> <span class="hljs-keyword">constraint</span> 约束名称 约束类型（列名）
+比方说可以给ename列加个<span class="hljs-keyword">unique</span>，让ename列的数据不重复
+例子：
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> emp <span class="hljs-keyword">add</span> <span class="hljs-keyword">constraint</span> qwe <span class="hljs-keyword">unique</span>(ename)</code></pre></div>
+<h2 id="4默认">4.默认</h2>
+<p>默认值</p>
+<div><pre class="hljs"><code>格式：
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名称 <span class="hljs-keyword">add</span> <span class="hljs-keyword">constraint</span> 约束名称 约束类型 默认值） <span class="hljs-keyword">for</span> 列名
+比方说：emp表中的gongzi列默认为<span class="hljs-number">10000</span>
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> emp <span class="hljs-keyword">add</span> <span class="hljs-keyword">constraint</span> jfsd <span class="hljs-keyword">default</span> <span class="hljs-number">10000</span> <span class="hljs-keyword">for</span> gongzi</code></pre></div>
+<h2 id="5外键">5.外键</h2>
+<p>取其他表中的主键作为自己的属性，从而保障数据库数据的完整性(逻辑上的约束)</p>
+<div><pre class="hljs"><code>格式：
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 <span class="hljs-keyword">add</span> <span class="hljs-keyword">constraint</span> 约束名称 约束类型 (列名) <span class="hljs-keyword">references</span> 被引用的表名称（列名）
+例子：
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> emp <span class="hljs-keyword">add</span> <span class="hljs-keyword">constraint</span> jfkdsj <span class="hljs-keyword">foreign</span> key (did) <span class="hljs-keyword">references</span> dept (id）</code></pre></div>
+<h2 id="6非空">6.非空</h2>
+<div><pre class="hljs"><code><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> Persons
+MODIFY Age <span class="hljs-type">int</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>;</code></pre></div>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[列存储索引]]></title>
+            <guid>42349fc629224895b0e928b0ae5477eb</guid>
+            <pubDate>Tue, 10 Jan 2023 08:43:31 GMT</pubDate>
+            <content:encoded><![CDATA[<h1 id="列存储索引">列存储索引</h1>
+<h2 id="创建">创建</h2>
+<div><pre class="hljs"><code><span class="hljs-keyword">create</span> clustered  columnstore <span class="hljs-keyword">index</span>  index_name <span class="hljs-keyword">on</span> <span class="hljs-built_in">table_name</span> ;</code></pre></div>
+<h2 id="参考">参考</h2>
+<p><a title="https://learn.microsoft.com/zh-cn/sql/relational-databases/indexes/columnstore-indexes-overview?view=sql-server-ver16" href="https://learn.microsoft.com/zh-cn/sql/relational-databases/indexes/columnstore-indexes-overview?view=sql-server-ver16">MS</a></p>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[索引]]></title>
+            <guid>65f3ae6fb02d40ce981fe171c3180546</guid>
+            <pubDate>Tue, 10 Jan 2023 08:21:39 GMT</pubDate>
+            <content:encoded><![CDATA[<h1 id="索引">索引</h1>
+<h2 id="简介">简介</h2>
+<p>分为聚集索引和非聚集索引，存储于物理中，用于提高数据的检索速度</p>
+<h2 id="查看索引">查看索引</h2>
+<p>简单版</p>
+<div><pre class="hljs"><code><span class="hljs-built_in">execute</span> sp_helpindex <span class="hljs-symbol">@objname</span>=<span class="hljs-string">'UserActionLog'</span></code></pre></div>
+<p>升级版</p>
+<div><pre class="hljs"><code>SELECT
+    索引名称= <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.name</span>
+    ,表名= c<span class="hljs-selector-class">.name</span>
+    ,索引字段名= d<span class="hljs-selector-class">.name</span>
+    ,索引字段位置= d<span class="hljs-selector-class">.colid</span> 
+FROM
+    sysindexes <span class="hljs-selector-tag">a</span>
+    JOIN sysindexkeys <span class="hljs-selector-tag">b</span> ON <span class="hljs-selector-tag">a</span>.id= <span class="hljs-selector-tag">b</span><span class="hljs-selector-class">.id</span> 
+    AND <span class="hljs-selector-tag">a</span>.indid= <span class="hljs-selector-tag">b</span><span class="hljs-selector-class">.indid</span>
+    JOIN sysobjects c ON <span class="hljs-selector-tag">b</span>.id= c<span class="hljs-selector-class">.id</span>
+    JOIN syscolumns d ON <span class="hljs-selector-tag">b</span>.id= d<span class="hljs-selector-class">.id</span> 
+    AND <span class="hljs-selector-tag">b</span>.colid= d<span class="hljs-selector-class">.colid</span> 
+WHERE
+    <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.indid</span> NOT IN ( <span class="hljs-number">0</span>, <span class="hljs-number">255</span> ) -- and c.xtype=<span class="hljs-string">'U'</span> and c.status\&gt;<span class="hljs-number">0</span>
+    
+    AND c.name= <span class="hljs-string">'UserActionLog'</span> --指定表
+    
+ORDER BY
+    c<span class="hljs-selector-class">.name</span>,
+    <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.name</span>,
+    d.name</code></pre></div>
+<h2 id="创建">创建</h2>
+<h3 id="1聚集索引">1.聚集索引</h3>
+<div><pre class="hljs"><code><span class="hljs-keyword">create</span> clustered  <span class="hljs-keyword">index</span>  index_name <span class="hljs-keyword">on</span> <span class="hljs-built_in">table_name</span>  ;</code></pre></div>
+<h3 id="2index">2.Index</h3>
+<div><pre class="hljs"><code><span class="hljs-keyword">create</span>  <span class="hljs-keyword">index</span>  index_name <span class="hljs-keyword">on</span> <span class="hljs-built_in">table_name</span>  (<span class="hljs-built_in">column_name</span>);</code></pre></div>
+<h3 id="3unique">3.unique</h3>
+<div><pre class="hljs"><code><span class="hljs-keyword">create</span> <span class="hljs-keyword">unique</span>  <span class="hljs-keyword">index</span>  index_name <span class="hljs-keyword">on</span> <span class="hljs-built_in">table_name</span> (<span class="hljs-built_in">column_name</span>) ;</code></pre></div>
+<h3 id="4指定模式offline">4.指定模式（offline）</h3>
+<div><pre class="hljs"><code><span class="hljs-keyword">create</span> clustered  <span class="hljs-keyword">index</span>  index_name <span class="hljs-keyword">on</span> <span class="hljs-built_in">table_name</span> (<span class="hljs-built_in">column_name</span>)
+<span class="hljs-keyword">WITH</span> (ONLINE = <span class="hljs-keyword">ON</span>) ;</code></pre></div>
+]]></content:encoded>
+        </item>
+        <item>
+            <title><![CDATA[数据表创建时间查询]]></title>
+            <guid>ec4ebf05ba0a4a5c98d4c46f241f3807</guid>
+            <pubDate>Tue, 10 Jan 2023 02:14:13 GMT</pubDate>
+            <content:encoded><![CDATA[<h1 id="数据表创建时间查询">数据表创建时间查询</h1>
+<div><pre class="hljs"><code><span class="hljs-keyword">select</span> <span class="hljs-type">name</span>,crdate <span class="hljs-keyword">from</span> sysobjects <span class="hljs-keyword">where</span> xtype = <span class="hljs-string">'U'</span> <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> crdate <span class="hljs-keyword">desc</span></code></pre></div>
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[简历-孟凯]]></title>
             <guid>c8034fc0147a4e1c99ecde0210dfdfc2</guid>
@@ -249,34 +477,6 @@
 <li>context.HttpContext.User</li>
 <li>Thread.CurrentPrincipal</li>
 </ol>
-]]></content:encoded>
-        </item>
-        <item>
-            <title><![CDATA[Claim]]></title>
-            <guid>ac20d44caaa1460396bf9456bc90060b</guid>
-            <pubDate>Wed, 31 Aug 2022 07:07:24 GMT</pubDate>
-            <content:encoded><![CDATA[<h2 id="claim">Claim</h2>
-<ol>
-<li>比如驾照，驾照中的“身份证号码：xxx”是一个claim</li>
-<li>身份证号码就是ClaimType</li>
-</ol>
-<h2 id="claimsidentity">ClaimsIdentity</h2>
-<ol>
-<li>一组claims构成了一个identity , 驾照就是一种ClaimsIdentity</li>
-</ol>
-<h2 id="claimsprincipal">ClaimsPrincipal</h2>
-<ol>
-<li>ClaimsIdentity的持有者就是ClaimsPrincipal</li>
-<li>一个ClaimsPrincipal可以持有多个ClaimsIdentity，就比如一个人既持有驾照，又持有护照
-<strong>生成登录Cookie</strong></li>
-</ol>
-<div><pre class="hljs"><code>
-<span class="hljs-keyword">var</span> claimsIdentity = <span class="hljs-keyword">new</span><span class="hljs-type">ClaimsIdentity</span>(
-    <span class="hljs-keyword">new</span><span class="hljs-type">Claim</span>[] { <span class="hljs-keyword">new</span><span class="hljs-type">Claim</span>(ClaimTypes.Name, loginName) }, <span class="hljs-string">"Basic"</span>);
-
-<span class="hljs-keyword">var</span> claimsPrincipal = <span class="hljs-keyword">new</span> <span class="hljs-type">ClaimsPrincipal</span>(claimsIdentity); 
-await context.Authentication.SignInAsync(_cookieAuthOptions.AuthenticationScheme, claimsPrincipal);
-</code></pre></div>
 ]]></content:encoded>
         </item>
     </channel>

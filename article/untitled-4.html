@@ -248,138 +248,51 @@
 </style>
 
 
-    <title>Archives - 首页</title>
-  </head>
+    <title>收缩日志 - 首页</title>
+  <link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
   <body>
     <div class="main">
       <nav class="navigation">
         <a href="/">首页</a>
       </nav>
-      <div class="blogs-list-block">
-        
-        <div class="annual-block">
-          <time class="annual-block-headline">2023年</time>
-          <ol>
+      <article>
+        <header>
+          <h1 class="article-title">收缩日志</h1>
+          <div class="article-info">
+            <div>
+              <span
+                >Created At：<time datetime="1673342080091"
+                  >2023-01-10 17:14</time
+                ></span
+              >
+              <span
+                >Updated At：<time datetime="1673348454700"
+                  >2023-01-10 19:00</time
+                ></span
+              >
+            </div>
             
-            <li>
-              <time datetime="1673349415391" class="annual-block-date">
-                2023-01-10 19:16
-              </time>
-              <a class="annual-block-title" href="/article/untitled-2">
-                表分区
-              </a>
-            </li>
+            <div>
+              Keywords: 
+              <span class="keyword">sqlserver</span>
+              
+            </div>
             
-            <li>
-              <time datetime="1673348890336" class="annual-block-date">
-                2023-01-10 19:08
-              </time>
-              <a class="annual-block-title" href="/article/untitled-1">
-                分区函数和分区方案
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673348067715" class="annual-block-date">
-                2023-01-10 18:54
-              </time>
-              <a class="annual-block-title" href="/article/untitled-3">
-                文件和文件组
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673342080091" class="annual-block-date">
-                2023-01-10 17:14
-              </time>
-              <a class="annual-block-title" href="/article/untitled-4">
-                收缩日志
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673341002773" class="annual-block-date">
-                2023-01-10 16:56
-              </time>
-              <a class="annual-block-title" href="/article/untitled-8">
-                约束
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673340211202" class="annual-block-date">
-                2023-01-10 16:43
-              </time>
-              <a class="annual-block-title" href="/article/untitled-7">
-                列存储索引
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673338899930" class="annual-block-date">
-                2023-01-10 16:21
-              </time>
-              <a class="annual-block-title" href="/article/untitled-9">
-                索引
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673316853624" class="annual-block-date">
-                2023-01-10 10:14
-              </time>
-              <a class="annual-block-title" href="/article/untitled-6">
-                数据表创建时间查询
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673246450046" class="annual-block-date">
-                2023-01-09 14:40
-              </time>
-              <a class="annual-block-title" href="/article/untitled">
-                简历-孟凯
-              </a>
-            </li>
-            
-          </ol>
-        </div>
-        
-        <div class="annual-block">
-          <time class="annual-block-headline">2022年</time>
-          <ol>
-            
-            <li>
-              <time datetime="1672381241134" class="annual-block-date">
-                2022-12-30 14:20
-              </time>
-              <a class="annual-block-title" href="/article/jwt">
-                Jwt
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1665662336000" class="annual-block-date">
-                2022-10-13 19:58
-              </time>
-              <a class="annual-block-title" href="/article/untitled-5">
-                结果窗口字体显示太小
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1661929644000" class="annual-block-date">
-                2022-08-31 15:07
-              </time>
-              <a class="annual-block-title" href="/article/claim">
-                Claim
-              </a>
-            </li>
-            
-          </ol>
-        </div>
-        
-      </div>
+          </div>
+        </header>
+        <div class="article-content markdown-body"><h1 id="收缩日志">收缩日志</h1>
+<div><pre class="hljs"><code>use LianJinDai
+go
+
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> LianJinDai <span class="hljs-keyword">SET</span> RECOVERY SIMPLE;
+
+DBCC SHRINKFILE (LianJinDai_test_log, <span class="hljs-number">10</span>) //收缩到 <span class="hljs-number">7</span> MB
+
+DBCC SHRINKFILE (<span class="hljs-string">'UserActionLog2021'</span>, EMPTYFILE);//弃用
+
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> LianJinDai <span class="hljs-keyword">SET</span> RECOVERY <span class="hljs-keyword">Full</span>;</code></pre></div>
+</div>
+      </article>
     </div>
   </body>
 </html>

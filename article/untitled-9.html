@@ -248,138 +248,78 @@
 </style>
 
 
-    <title>Archives - 首页</title>
-  </head>
+    <title>索引 - 首页</title>
+  <link rel="stylesheet" href="/_markdown_plugin_assets/highlight.js/atom-one-light.css" /></head>
   <body>
     <div class="main">
       <nav class="navigation">
         <a href="/">首页</a>
       </nav>
-      <div class="blogs-list-block">
-        
-        <div class="annual-block">
-          <time class="annual-block-headline">2023年</time>
-          <ol>
+      <article>
+        <header>
+          <h1 class="article-title">索引</h1>
+          <div class="article-info">
+            <div>
+              <span
+                >Created At：<time datetime="1673338899930"
+                  >2023-01-10 16:21</time
+                ></span
+              >
+              <span
+                >Updated At：<time datetime="1673342034768"
+                  >2023-01-10 17:13</time
+                ></span
+              >
+            </div>
             
-            <li>
-              <time datetime="1673349415391" class="annual-block-date">
-                2023-01-10 19:16
-              </time>
-              <a class="annual-block-title" href="/article/untitled-2">
-                表分区
-              </a>
-            </li>
+            <div>
+              Keywords: 
+              <span class="keyword">sqlserver</span>
+              
+            </div>
             
-            <li>
-              <time datetime="1673348890336" class="annual-block-date">
-                2023-01-10 19:08
-              </time>
-              <a class="annual-block-title" href="/article/untitled-1">
-                分区函数和分区方案
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673348067715" class="annual-block-date">
-                2023-01-10 18:54
-              </time>
-              <a class="annual-block-title" href="/article/untitled-3">
-                文件和文件组
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673342080091" class="annual-block-date">
-                2023-01-10 17:14
-              </time>
-              <a class="annual-block-title" href="/article/untitled-4">
-                收缩日志
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673341002773" class="annual-block-date">
-                2023-01-10 16:56
-              </time>
-              <a class="annual-block-title" href="/article/untitled-8">
-                约束
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673340211202" class="annual-block-date">
-                2023-01-10 16:43
-              </time>
-              <a class="annual-block-title" href="/article/untitled-7">
-                列存储索引
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673338899930" class="annual-block-date">
-                2023-01-10 16:21
-              </time>
-              <a class="annual-block-title" href="/article/untitled-9">
-                索引
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673316853624" class="annual-block-date">
-                2023-01-10 10:14
-              </time>
-              <a class="annual-block-title" href="/article/untitled-6">
-                数据表创建时间查询
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1673246450046" class="annual-block-date">
-                2023-01-09 14:40
-              </time>
-              <a class="annual-block-title" href="/article/untitled">
-                简历-孟凯
-              </a>
-            </li>
-            
-          </ol>
-        </div>
-        
-        <div class="annual-block">
-          <time class="annual-block-headline">2022年</time>
-          <ol>
-            
-            <li>
-              <time datetime="1672381241134" class="annual-block-date">
-                2022-12-30 14:20
-              </time>
-              <a class="annual-block-title" href="/article/jwt">
-                Jwt
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1665662336000" class="annual-block-date">
-                2022-10-13 19:58
-              </time>
-              <a class="annual-block-title" href="/article/untitled-5">
-                结果窗口字体显示太小
-              </a>
-            </li>
-            
-            <li>
-              <time datetime="1661929644000" class="annual-block-date">
-                2022-08-31 15:07
-              </time>
-              <a class="annual-block-title" href="/article/claim">
-                Claim
-              </a>
-            </li>
-            
-          </ol>
-        </div>
-        
-      </div>
+          </div>
+        </header>
+        <div class="article-content markdown-body"><h1 id="索引">索引</h1>
+<h2 id="简介">简介</h2>
+<p>分为聚集索引和非聚集索引，存储于物理中，用于提高数据的检索速度</p>
+<h2 id="查看索引">查看索引</h2>
+<p>简单版</p>
+<div><pre class="hljs"><code><span class="hljs-built_in">execute</span> sp_helpindex <span class="hljs-symbol">@objname</span>=<span class="hljs-string">'UserActionLog'</span></code></pre></div>
+<p>升级版</p>
+<div><pre class="hljs"><code>SELECT
+    索引名称= <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.name</span>
+    ,表名= c<span class="hljs-selector-class">.name</span>
+    ,索引字段名= d<span class="hljs-selector-class">.name</span>
+    ,索引字段位置= d<span class="hljs-selector-class">.colid</span> 
+FROM
+    sysindexes <span class="hljs-selector-tag">a</span>
+    JOIN sysindexkeys <span class="hljs-selector-tag">b</span> ON <span class="hljs-selector-tag">a</span>.id= <span class="hljs-selector-tag">b</span><span class="hljs-selector-class">.id</span> 
+    AND <span class="hljs-selector-tag">a</span>.indid= <span class="hljs-selector-tag">b</span><span class="hljs-selector-class">.indid</span>
+    JOIN sysobjects c ON <span class="hljs-selector-tag">b</span>.id= c<span class="hljs-selector-class">.id</span>
+    JOIN syscolumns d ON <span class="hljs-selector-tag">b</span>.id= d<span class="hljs-selector-class">.id</span> 
+    AND <span class="hljs-selector-tag">b</span>.colid= d<span class="hljs-selector-class">.colid</span> 
+WHERE
+    <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.indid</span> NOT IN ( <span class="hljs-number">0</span>, <span class="hljs-number">255</span> ) -- and c.xtype=<span class="hljs-string">'U'</span> and c.status\&gt;<span class="hljs-number">0</span>
+    
+    AND c.name= <span class="hljs-string">'UserActionLog'</span> --指定表
+    
+ORDER BY
+    c<span class="hljs-selector-class">.name</span>,
+    <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.name</span>,
+    d.name</code></pre></div>
+<h2 id="创建">创建</h2>
+<h3 id="1聚集索引">1.聚集索引</h3>
+<div><pre class="hljs"><code><span class="hljs-keyword">create</span> clustered  <span class="hljs-keyword">index</span>  index_name <span class="hljs-keyword">on</span> <span class="hljs-built_in">table_name</span>  ;</code></pre></div>
+<h3 id="2index">2.Index</h3>
+<div><pre class="hljs"><code><span class="hljs-keyword">create</span>  <span class="hljs-keyword">index</span>  index_name <span class="hljs-keyword">on</span> <span class="hljs-built_in">table_name</span>  (<span class="hljs-built_in">column_name</span>);</code></pre></div>
+<h3 id="3unique">3.unique</h3>
+<div><pre class="hljs"><code><span class="hljs-keyword">create</span> <span class="hljs-keyword">unique</span>  <span class="hljs-keyword">index</span>  index_name <span class="hljs-keyword">on</span> <span class="hljs-built_in">table_name</span> (<span class="hljs-built_in">column_name</span>) ;</code></pre></div>
+<h3 id="4指定模式offline">4.指定模式（offline）</h3>
+<div><pre class="hljs"><code><span class="hljs-keyword">create</span> clustered  <span class="hljs-keyword">index</span>  index_name <span class="hljs-keyword">on</span> <span class="hljs-built_in">table_name</span> (<span class="hljs-built_in">column_name</span>)
+<span class="hljs-keyword">WITH</span> (ONLINE = <span class="hljs-keyword">ON</span>) ;</code></pre></div>
+</div>
+      </article>
     </div>
   </body>
 </html>
