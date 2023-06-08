@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown-light.css" />
+  <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+  <script>
+    L2Dwidget.init({
+      "model": { "jsonPath":"https://unpkg.com/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json", "scale": 1, "hHeadPos":0.5, "vHeadPos":0.618 },
+      "display": { "position": "right", "width": 400, "height": 400, "hOffset": 0, "vOffset": 0 },
+      "mobile": { "show": true, "scale": 0.5 },
+      "react": { "opacityDefault": 0.7, "opacityOnHover": 0.2 }
+    });
+  </script>
+
+<style>
+  body {
+    background-color: #f5f5d5;
+  }
+  .markdown-body 
+  {
+    background-color: #f5f5d5;
+  }
+
+  .main {
+    width: 85%;
+    margin: 0 auto;
+    max-width: 1260px;
+
+  }
+
+  @media screen and (max-width: 600px) {
+    .main {
+      width: 85%;
+    }
+  }
+
+  .navigation {
+    margin-bottom: 50px;
+    border-bottom: 1px solid #d3d3d3;
+    line-height: 2.5;
+    margin-top: 25px;
+  }
+
+  .navigation a {
+    color: #567;
+    font-family: 'Lucida Console', 'Liberation Mono', Menlo, Monaco, Roboto, apple-system,
+      'Helvetica Neue', Arial, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      'WenQuanYi Micro Hei', sans-serif;
+  }
+
+  #homepage,
+  #homepage body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .homepage-main {
+    margin: 0 auto;
+    position: relative;
+    top: 30%;
+    font-weight: normal;
+    margin: 0 0 10px;
+  }
+
+  .homepage-title-area {
+    transition: opacity 1s;
+    margin-bottom: 60px;
+  }
+
+  .homepage-title,
+  .homepage-subtitle {
+    text-align: center;
+    font-weight: normal;
+    opacity: 0.7;
+  }
+
+  .homepage-title {
+    font-size: 30px;
+    margin: 0 0 10px;
+    font-family: apple-system, 'Helvetica Neue', Arial, 'Helvetica Neue', 'PingFang SC',
+      'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+  }
+
+  .homepage-subtitle {
+    font-size: 12px;
+    font-family: 'Lucida Console', 'Liberation Mono', Menlo, Monaco, Roboto, apple-system,
+      'Helvetica Neue', Arial, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      'WenQuanYi Micro Hei', sans-serif;
+  }
+
+  .homepage-navigation ul {
+    padding: 0;
+    text-align: center;
+  }
+
+  .homepage-navigation li {
+    list-style: none;
+    display: inline-block;
+    margin: 30px 0 0 30px;
+  }
+
+  .homepage-navigation li:first-child {
+    margin-left: 0;
+  }
+
+  .homepage-navigation a {
+    color: #dd4242;
+    text-decoration: none;
+    font-family: 'Lucida Console', 'Liberation Mono', Menlo, Monaco, Roboto, apple-system,
+      'Helvetica Neue', Arial, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      'WenQuanYi Micro Hei', sans-serif;
+  }
+
+  .homepage-navigation a:hover {
+    text-decoration: underline;
+  }
+
+  .about p {
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+
+  .about li {
+    font-family: 'Lucida Console', 'Liberation Mono', Menlo, Monaco, Roboto, apple-system,
+      'Helvetica Neue', Arial, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      'WenQuanYi Micro Hei', sans-serif;
+    margin-top: 15px;
+  }
+
+  .about li a {
+    color: #567;
+    text-decoration: underline solid;
+  }
+
+  .article-title {
+    font-weight: normal;
+    font-family: apple-system, 'Helvetica Neue', Arial, 'Helvetica Neue', 'PingFang SC',
+      'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+  }
+
+  .article-info {
+    color: #777777;
+    margin-bottom: 50px;
+    font-family: 'Lucida Console', 'Liberation Mono', Menlo, Monaco, Roboto, apple-system,
+      'Helvetica Neue', Arial, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      'WenQuanYi Micro Hei', sans-serif;
+  }
+
+  .article-info span {
+    margin: 0 30px 0px 0;
+  }
+
+  .article-info .keyword {
+    margin: 5px 5px 0 0;
+    display: inline-block;
+  }
+
+  @font-face {
+    font-family: octicons-link;
+    src: url("https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.woff") format('woff');
+  }
+
+  .blogs-list-block {
+    line-height: 1.5em;
+  }
+
+  .blogs-list-block ol {
+    margin-bottom: 60px;
+  }
+
+  @media screen and (max-width: 600px) {
+    .blogs-list-block ol {
+      padding-left: 1em;
+    }
+  }
+
+  .blogs-list-block li {
+    display: flex;
+    list-style-type: none;
+    margin-bottom: 20px;
+  }
+
+  .annual-block {
+    margin-bottom: 50px;
+  }
+
+  .annual-block-headline {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 30px;
+    font-family: 'Lucida Console', 'Liberation Mono', Menlo, Monaco, Roboto, apple-system,
+      'Helvetica Neue', Arial, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      'WenQuanYi Micro Hei', sans-serif;
+  }
+
+  .annual-block-title {
+    font-family: apple-system, 'Helvetica Neue', Arial, 'Helvetica Neue', 'PingFang SC',
+      'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
+    color: #567;
+    text-decoration: none;
+  }
+
+  .annual-block-title.is-dir {
+    text-decoration: dotted underline;
+  }
+
+  .annual-block-date {
+    font-family: 'Lucida Console', 'Liberation Mono', Menlo, Monaco, Roboto, apple-system,
+      'Helvetica Neue', Arial, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      'WenQuanYi Micro Hei', sans-serif;
+    margin-right: 30px;
+    color: #999999;
+  }
+
+  .rss-link {
+    display: block;
+    width: 3em;
+    padding-left: 100%;
+    margin: 50px 0 100px -3em;
+    color: #567;
+  }
+
+  .error {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  .error p {
+    font-size: 20px;
+  }
+
+  .error a {
+    font-family: 'Lucida Console', 'Liberation Mono', Menlo, Monaco, Roboto, apple-system,
+      'Helvetica Neue', Arial, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+      'WenQuanYi Micro Hei', sans-serif;
+    text-decoration: underline dotted;
+    color: #777777;
+  }
+</style>
+
+
+    <title>验房 - 首页</title>
+  </head>
+  <body>
+    <div class="main">
+      <nav class="navigation">
+        <a href="/">首页</a>
+      </nav>
+      <article>
+        <header>
+          <h1 class="article-title">验房</h1>
+          <div class="article-info">
+            <div>
+              <span
+                >Created At：<time datetime="1685692489452"
+                  >2023-06-02 15:54</time
+                ></span
+              >
+              <span
+                >Updated At：<time datetime="1686208808040"
+                  >2023-06-08 15:20</time
+                ></span
+              >
+            </div>
+            
+            <div>
+              Keywords: 
+              <span class="keyword">house</span>
+              
+            </div>
+            
+          </div>
+        </header>
+        <div class="article-content markdown-body"><h1 id="验房">验房</h1>
+<h2 id="发现问题">发现问题</h2>
+<ol>
+<li>房屋总面积超出或者减少3%以内，属于正常范围，如超出可以根据合同规定进行赔偿</li>
+<li>发生逾期，可以根据合同规定进行赔偿</li>
+<li>拒绝出示三证一书一表或文件不全，您可按购房合同第十一条，要求开发商签收“关于出卖人拒绝出示《住宅质量保证书》和《住宅使用说明书》、《建筑工程竣工验收备案表》的责任确认函”。</li>
+</ol>
+<h2 id="拿钥匙之前拒绝">拿钥匙之前拒绝</h2>
+<ol>
+<li>契税</li>
+<li>维修基金</li>
+<li>物业管理费</li>
+<li>燃气初装费</li>
+<li>有线电视初装费</li>
+<li>供暖费用等等</li>
+</ol>
+<h2 id="准备验房材料">准备验房材料</h2>
+<ol>
+<li>商品房买卖合同原件</li>
+<li>全体业主</li>
+<li>全体业主身份证原件及2份复印件</li>
+</ol>
+<h2 id="准备缴纳契税材料">准备缴纳契税材料</h2>
+<ol>
+<li>商品房买卖合同原件</li>
+<li>增值税普通发票原件及复印件</li>
+<li>补充协议</li>
+<li>诚信保证书</li>
+<li>婚姻家庭状况承诺书</li>
+<li>购房人身份证原件及正反面复印件（购房本人、配偶及未成年子女）</li>
+<li>户口本原件及复印件（户口首页及个人登记页，购房人本人、配偶及未成年子女）</li>
+<li>结婚证/离婚证（离婚后变动过户口还是登记已婚的需修改户口）/民事调解书/死亡证</li>
+<li>如委托他人办理，需提供契税委托书及经办人身份证原件与正反面复印件</li>
+</ol>
+<h2 id="办理不动产权证书">办理不动产权证书</h2>
+<ol>
+<li>缴纳契税，拿回加盖税务局征税专用章的《完税证明》以及《不动产权证书办理资料》</li>
+<li>交到物业服务中心，办理不动产权证书</li>
+</ol>
+<h2 id="费用">费用</h2>
+<ol>
+<li>契税</li>
+<li>房屋专项维修资金</li>
+<li>不动产登记费</li>
+<li>不动产共有证书费</li>
+<li>税花</li>
+<li>物业管理费</li>
+<li>房款补差</li>
+</ol>
+<h2 id="三证一书一表原件">三证一书一表（原件）</h2>
+<p>住宅质量保证书、住宅使用说明书和管线分布竣工图，可带走，作为证据资料保存</p>
+<h3 id="清单">清单</h3>
+<ol>
+<li>建筑工程质量认定证书（必须）</li>
+<li>住宅使用说明书（必须）</li>
+<li>住宅质量保证书（必须）</li>
+<li>竣工验收备案表（必须）</li>
+<li>房地产开发建设项目竣工综合验收合格证（必须）</li>
+<li>面积实测表</li>
+<li>水、电、气等的质量检验及认证</li>
+<li>管线分布竣工图</li>
+</ol>
+<h3 id="竣工验收备案表">竣工验收备案表</h3>
+<p>全称为《房屋建筑工程和市政基础设施工程竣工验收标准备案表》，是收房环节中最重要的文件，由设计、监理、建设单位和施工单位四方合验后，在工程竣工15天内到建设行政主管部门竣工备案。《竣工验收备案表》中的项目， 只要送交主管部门备案后，房地产商就必须对楼盘终生负责。此表对房地产商有严格的约束作用，按照有关规定，表上的每一项都必须有相关管部门备案，缺少任何一项，这个楼盘就是“黑楼”，是不能入住的，购房者有权拒绝收房。
+<img src="/_resources/d9c75599553145fea491e8f39eb84c21.jpg" /></p>
+<h3 id="住宅质量保证书">住宅质量保证书</h3>
+<p>《住宅质量保证书》是开发商针对房屋质量及保修期限、范围作出的承诺，必须作为购房合同的附件，与购房合同具有同等的效力。所以提醒收房者要仔细审查其中的具体单项，特别注意保修期限。
+<img src="/_resources/2132e2f68bf746f1a1bef129e1ddd4c8.jpg" /></p>
+<h3 id="住宅使用说明书">住宅使用说明书</h3>
+<p>《住宅使用说明书》是针对房屋设计、施工及验收中具体技术指标的相关说明，如抗震指数、墙体结构等相关内容。说明书中还应包含如下内容：开发商名称及其联系电话；设计单位及其联系电话；施工单位及其联系电话；监理单位及其联系电话。如果没有相关电话及单位的信息，等于拿了一张没有用的白纸，日后维权无迹可寻。</p>
+<p><img src="/_resources/0a626b02f5ee4841b3026ea0534d588b.jpg" /></p>
+<h2 id="物业手续">物业手续</h2>
+<ol>
+<li>业主情况登记表</li>
+<li>防火责任书</li>
+<li>临时管理规约</li>
+<li>水电气报装手续</li>
+<li>公摊费划扣协议</li>
+<li>预交物业费等等</li>
+<li>领取钥匙后进行验房</li>
+</ol>
+<h2 id="物业管理费">物业管理费</h2>
+<p>物价局批文</p>
+<ol>
+<li>装修押金</li>
+<li>垃圾清运费</li>
+</ol>
+<h2 id="验房工具">验房工具</h2>
+<ol>
+<li>A4纸，验收门窗的密封性 <code>有</code></li>
+<li>打火机，验收烟道流通性，厨房、卫生间的排气通道上都已经有预留的孔洞<code>有</code></li>
+<li>大的矿泉水瓶，验收上水和下水流通性<code>有</code></li>
+<li>电笔(相位检测仪)（验电器），验收全屋电路<code>有</code></li>
+<li>空鼓锤，验收墙面和地面空鼓情况</li>
+<li>靠尺，检验墙面和地面的平整垂直度</li>
+<li>塞尺，测量缝隙宽度</li>
+<li>直角尺，墙面内外角度是否90度</li>
+<li>水平尺（红外线水平测试仪），检验墙面地面平整度</li>
+<li>卷尺(测量仪)，测量面积和长度</li>
+<li>乒乓球，根据建筑设计、施工中的规范，住宅楼室内的排水管道立管和横管安装完毕之后，是需要做“通球试验”<code>有</code></li>
+<li>记号笔，用于做记号，圈出空鼓位置，责令整改</li>
+<li>甲醛检测仪，甲醛是否超标</li>
+</ol>
+<h2 id="开始验房">开始验房</h2>
+<h3 id="空鼓">空鼓</h3>
+<ol>
+<li>满敲</li>
+<li>上下间隔20cm敲一次</li>
+<li>其他</li>
+</ol>
+<h3 id="门窗">门窗</h3>
+<ol>
+<li>密封性，关闭是否严密，取A4纸夹住，检测抽出来的难易程度</li>
+<li>灵活，开启关闭是否顺畅灵活，有无异响</li>
+<li>外貌，表面是否有划痕、磕碰或变形</li>
+<li>垂直性，与地面是否垂直</li>
+<li>锁具使用功能是否正常</li>
+<li>五金件是否有丢失或破损</li>
+<li>窗外密封胶，是否严实合缝</li>
+<li>排水孔，能不能正常工作</li>
+<li>其他</li>
+</ol>
+<h3 id="墙面">墙面</h3>
+<ol>
+<li>平整度</li>
+<li>垂直度，墙体垂直度误差不能超过1cm，靠尺</li>
+<li>空鼓</li>
+<li>外貌，有无开裂</li>
+<li>阴阳角，误差小于5mm</li>
+<li>房顶，有没有水渍</li>
+<li>其他</li>
+</ol>
+<h3 id="墙面乳胶漆">墙面乳胶漆</h3>
+<ol>
+<li>墙面乳胶漆是否有缺损</li>
+<li>污渍</li>
+<li>流坠</li>
+<li>浇水上去，拿手搓一搓</li>
+<li>其他</li>
+</ol>
+<h3 id="地面">地面</h3>
+<ol>
+<li>平整度，靠尺</li>
+<li>面积，误差应小于2cm</li>
+<li>空鼓</li>
+<li>牢固、行走时有无异响、地面不出现明显的凹凸</li>
+<li>其他</li>
+</ol>
+<h3 id="地面瓷砖">地面瓷砖</h3>
+<ol start="2">
+<li>表面，平直、整洁、无损伤</li>
+<li>色差</li>
+<li>其他</li>
+</ol>
+<h3 id="水路">水路</h3>
+<ol>
+<li>手龙头，密封性</li>
+<li>排水，不能出现倒坡</li>
+<li>通畅，厨房、浴室、阳台的排水管、地漏、蹲坑等排水口注水，若听到咕噜噜的声音说明管道通畅</li>
+<li>水表空转，关闭水闸，水表依旧转动</li>
+<li>防水，在卫生间注入20cm高的水，停止至少24小时，约好楼下的业主在24小时后查看其家厕卫的天花</li>
+<li>供水是否正常</li>
+<li>水压，水流力度</li>
+<li>水表，是否完好</li>
+<li>水井钥匙，是否领取</li>
+<li>排水，把家里的水龙头关掉，过一段时间后，再打开水表，看清楚水表数字有无变化</li>
+<li>其他</li>
+</ol>
+<h3 id="电路">电路</h3>
+<ol>
+<li>插座，通电情况</li>
+<li>开关，每个灯是否等能正常打开</li>
+<li>牢固</li>
+<li>断电，关闭总开关</li>
+<li>配电箱是否正常安装，是否做好相应标记</li>
+<li>电表是否正常运转，电表数是否正确</li>
+<li>回路数，不宜少于5个，增加回路可以保证电线的使用寿命，减少短路火灾发生</li>
+<li>电线，家里的电线不应低于<strong>2.5</strong>平方，空调线更应达到<strong>4</strong>平方</li>
+<li>其他</li>
+</ol>
+<h3 id="电路弱电">电路弱电</h3>
+<ol>
+<li>网线光纤</li>
+<li>电话线</li>
+<li>闭路线</li>
+<li>弱电箱内接有：数字电视、电话和网线三种，还有一个电源插座</li>
+<li>弱电箱箱底距地面的距离至少30公分</li>
+<li>弱电箱盒盖外观是否完整</li>
+</ol>
+<h3 id="通风">通风</h3>
+<ol>
+<li>卫生间、厨房通风管道是否通畅</li>
+<li>利用打火机的火苗，在已有的烟道孔洞处，检测火苗是否往里面吸</li>
+</ol>
+<h3 id="暖气">暖气</h3>
+<ol>
+<li>外貌，有无划，漏过水的痕迹</li>
+</ol>
+<h3 id="燃气">燃气</h3>
+<ol>
+<li>检查燃气是否已安装</li>
+<li>是否有报警器</li>
+<li>通燃气的时间</li>
+<li>燃气表，数字是否正确</li>
+</ol>
+<h3 id="阳台">阳台</h3>
+<ol>
+<li>阳台护栏栏杆高度不应小于1.05m</li>
+<li>高层建筑栏杆高度应再提高，但不宜超过1.20m</li>
+<li>阳台护栏安装是否牢固</li>
+<li>护栏玻璃是否符合规范要求</li>
+<li>其他</li>
+</ol>
+<h3 id="暖风机">暖风机</h3>
+<ol>
+<li>换气风片，把一张纸放上去，检测能否吸住</li>
+<li>关房门，拿出纸，检测能不能被风移动</li>
+<li>管道，小吸盘，吸住顶部边上，打开天窗，进行查看</li>
+</ol>
+<h3 id="卫生间">卫生间</h3>
+<ol>
+<li>排水，所有物体表面的坡度</li>
+<li>马桶，卫生纸放进去，检测能否快速冲下去</li>
+<li>马桶密封性，底部有没有打胶</li>
+<li>洗手池，放满水在打开漏水阀</li>
+</ol>
+<h3 id="柜体">柜体</h3>
+<ol>
+<li>是否存在变形、气泡等</li>
+<li>橱柜石材切割是否精细平直、无破损</li>
+<li>观察五金件是否开合顺滑、噪音低、无锈迹</li>
+</ol>
+<h3 id="消防类">消防类</h3>
+<ol>
+<li>烟火报警器，，一是遇到浓烟，只会响个不停，一种是检测到浓烟，会响也会喷水的</li>
+<li>消防箱，立面要放有消防栓、消防水带、消防枪</li>
+</ol>
+<h3 id="电梯类">电梯类</h3>
+<ol>
+<li>品牌</li>
+<li>摄像头</li>
+<li>紧急呼救</li>
+<li>呼救电话</li>
+<li>通往楼梯的防火门是否完好</li>
+<li>楼梯扶手的孔洞是否小于11厘米，保证人身安全</li>
+</ol>
+<h3 id="室外设备">室外设备</h3>
+<ol>
+<li>室外安全设备是否齐全，监控设备等</li>
+<li>看楼栋外立面是否完好，有无水渍，瓷砖是否牢固</li>
+<li>注意楼栋是否存在倾斜或者下沉的情况。注意看楼栋的单元门是否完好，门禁设施是否能正常使用</li>
+<li>楼道楼梯安全性和消防设施、水表间、电表间等公用设施</li>
+</ol>
+</div>
+      </article>
+    </div>
+  </body>
+</html>
