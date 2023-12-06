@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title></title>
         <link>undefined</link>
         <description>undefined</description>
-        <lastBuildDate>Wed, 06 Dec 2023 01:47:51 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 06 Dec 2023 02:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Joplin Pages Publisher</generator>
+        <item>
+            <title><![CDATA[幼儿园]]></title>
+            <guid>ff4cffb4018e478fbd3e757444ad4e82</guid>
+            <pubDate>Tue, 05 Dec 2023 08:39:52 GMT</pubDate>
+            <content:encoded><![CDATA[<h1 id="幼儿园">幼儿园</h1>
+<h2 id="金色家园幼儿园">金色家园幼儿园</h2>
+<p>180 3112 1117<br />
+<img src="/_resources/a74838b96bcc4f3ab07c036b1c371ca4.png" /></p>
+<h2 id="留村家园幼儿园">留村家园幼儿园</h2>
+<p>条件：需要过十字路口<br />
+<img src="/_resources/12759332635d4e3fba3ba91ef6cb9a28.png" /></p>
+<h2 id="云锦园幼儿园">云锦园幼儿园</h2>
+<p>条件：需要过十字路口，过马路<br />
+133 3138 7080<br />
+<img src="/_resources/88fdf1325b0d48ac85983fd6cb551471.png" /></p>
+<h2 id="石家庄市第一幼儿园">石家庄市第一幼儿园</h2>
+<p>条件：距离远<br />
+155 3396 8703<br />
+<img src="/_resources/1ef11067c28742af89cf8ca02f27c490.png" /></p>
+<h2 id="石家庄市桥西区万科翡翠园幼儿园">石家庄市桥西区万科翡翠园幼儿园</h2>
+<p>条件：万科的业主<br />
+<img src="/_resources/ab4c7eff47ca429193bab465ee413de1.png" /></p>
+]]></content:encoded>
+        </item>
     </channel>
 </rss>
